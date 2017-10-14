@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+from commands import *
+
+parser.set_defaults(func=default_command, parser=parser)
+subparsers = parser.add_subparsers()
+
+fees = subparsers.add_parser('fees', help='Determine the fees you will pay for a transaction')
+fees.add_argument('--source', help='Source currency', default='EUR')
+fees.add_argument('--target', help='Target currency', default='GBP')
+fees.add_argument('amount', help='Amount')
+fees.set_defaults(func=fees_command)
+
+transfer = subparsers.add_parser('transfer', help='Determine how much you get paid for a transaction')
+transfer.add_argument('--source', help='Source currency', default='EUR')
+transfer.add_argument('--target', help='Target currency', default='GBP')
+transfer.add_argument('amount', help='Amount')
+transfer.set_defaults(func=transfer_command)
+
+rate = subparsers.add_parser('rate', help='Current exchange rate')
+rate.add_argument('--source', help='Source currency', default='EUR')
+rate.add_argument('--target', help='Target currency', default='GBP')
+rate.set_defaults(func=rate_command)
+
+profit = subparsers.add_parser('profit', help='Determine exchange rate to make a certain profit')
+profit.add_argument('profit', help='Expected profit')
+profit.add_argument('transferred', help='How much was initially transferred')
+profit.add_argument('--cashed', help='How much was it was with the initial transfer', default=None)
+profit.add_argument('--source', help='Source currency', default='EUR')
+profit.add_argument('--target', help='Target currency', default='GBP')
+profit.set_defaults(func=profit_command)
+
+args = parser.parse_args()
+args.func(args)

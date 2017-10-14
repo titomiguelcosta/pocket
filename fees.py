@@ -1,26 +1,50 @@
-class TransferWiseFee:
-  def __init__(self, percentage):
-     self.percentage = percentage
+from api.client.transferwise import TransferWise
 
-  def fee(self, amount):
-     return amount * self.percentage / 100
+
+class LloydsFee:
+    """
+    Fees charged by Lloyds
+    """
+    def fee(self, amount, source="EUR", target="GPB"):
+
+        return 0.0
+
+
+class BNZFee:
+    """
+    Fees charged by BNZ
+    """
+    def fee(self, amount, source="EUR", target="GPB"):
+
+        return 0.0
+
+
+class MillenniumBcpFee:
+    """
+    Fees charged by MillenniumBcp
+    """
+    def fee(self, amount, source="EUR", target="GPB"):
+
+        return 1.57 if source == "EUR" else 0.0
+
+
+class TransferWiseFee:
+    """
+    Fees charged by TransferWise
+    """
+    def fee(self, amount, source="EUR", target="GPB"):
+        client = TransferWise()
+
+        return client.get_fee(amount, source, target)
 
 
 class FeeManager:
-  def __init__(self):
-    self.fees = [TransferWiseFee(0.7)]
+    def __init__(self):
+        self.fees = [TransferWiseFee(), MillenniumBcpFee(), BNZFee(), LloydsFee()]
 
-  def fee(self, amount):
-    total = 0.0
-    for f in self.fees:
-      total += f.fee(amount)
+    def fee(self, amount, source="EUR", target="GPB"):
+        total = 0.0
+        for f in self.fees:
+            total += f.fee(amount, source=source, target=target)
 
-    return total
-
-
-if __name__ == "__main__":
-  f = TransferWiseFee(0.7)
-  print("Fee for an amount of 1000: %.2f" % f.fee(1000))
-
-  m = FeeManager()
-  print("Fee for an amount of 3000: %.2f" % m.fee(3000))
+        return total
