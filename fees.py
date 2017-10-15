@@ -29,18 +29,19 @@ class MillenniumBcpFee:
 
 
 class TransferWiseFee:
+    client = TransferWise()
+
     """
     Fees charged by TransferWise
     """
     def fee(self, amount, source="EUR", target="GPB"):
-        client = TransferWise()
 
-        return client.get_fee(amount, source, target)
+        return self.client.get_fee(amount, source, target)
 
 
 class FeeManager:
-    def __init__(self):
-        self.fees = [TransferWiseFee(), MillenniumBcpFee(), BNZFee(), LloydsFee()]
+    def __init__(self, fees=None):
+        self.fees = [TransferWiseFee(), MillenniumBcpFee(), BNZFee(), LloydsFee()] if fees is None else fees
 
     def fee(self, amount, source="EUR", target="GPB"):
         total = 0.0

@@ -30,8 +30,9 @@ $ python bin/pocket fees 1000 --source=NZD --target=GBP
 
 Determines the rate needed to make a certain profit.
 If --cashed parameter is not passed, it will use current rate to calculate initial transfer from source to target.
+In the example, it is intended to make a profit of 100NZD by transfering 1000NZD to GBP and then transfering back.
 
 ```
-$ python bin/pocket profit 1000 --source=NZD --target=GBP
+$ python bin/pocket profit 100 1000 --source=NZD --target=GBP
 
 ```

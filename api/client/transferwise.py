@@ -4,9 +4,7 @@ import random
 
 class TransferWise:
     token = "YjRhODM3MWUtZTE3Yi00NTIzLWE2MDgtMGMwNDFmYTBiOTRlOjEwMjIxNDFhLTliZGMtNDNkZS1hZGU0LWVlMzQ4OGNiNmNhZQ=="
-    user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
-    referrer = "https://transferwise.com/nz/"
-    origin = "https://transferwise.com"
+    authorisation_key = "dad99d7d8e52c2c8aaf9fda788d8acdc"
 
     def get_rate(self, source="EUR", target="GBP"):
         rate = None
@@ -27,7 +25,7 @@ class TransferWise:
     def get_fee(self, amount, source="EUR", target="GBP"):
         fee = None
         headers = self.get_headers()
-        headers.update({"x-authorization-key": "dad99d7d8e52c2c8aaf9fda788d8acdc"})
+        headers.update({"x-authorization-key": self.authorisation_key})
 
         while fee is None:
             r = requests.get(
@@ -43,8 +41,8 @@ class TransferWise:
 
     def get_headers(self):
         return {
-            "User-Agent": self.user_agent,
-            "Referer": self.referrer,
-            "Origin": self.origin,
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
+            "Referer": "https://transferwise.com/nz/",
+            "Origin": "https://transferwise.com",
         }
 
