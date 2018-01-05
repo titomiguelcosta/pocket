@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import jsonify
-from .api.client.transferwise import TransferWise
-from .calculator import Calculator
-from .fees import FeeManager
+from api.client.transferwise import TransferWise
+from calculator import Calculator
+from fees import FeeManager
 
 app = Flask(__name__)
 
@@ -43,12 +43,12 @@ def outcome(transferred, cashed, source='EUR', target='GBP', rate=None):
 
     return jsonify({
         "description": "Outcome of %.2f%s by transferring back %.2f%s" % (
-            outcome, source, cashed, target
+            outcome, source.upper(), cashed, target.upper()
         ),
         "rate": rate,
         "transferred": transferred,
         "cashed": cashed,
         "outcome": float(format(outcome, ".2f")),
-        "source": source,
-        "target": target
+        "source": source.upper(),
+        "target": target.upper()
     })

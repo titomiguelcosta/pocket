@@ -27,7 +27,7 @@ class TransferWise:
             )
             json = r.json()
             if 200 == r.status_code and "transferwiseRate" in json:
-                rate = json["transferwiseRate"]
+                rate = float(json["transferwiseRate"])
             else:
                 logging.getLogger(__name__).warning(str(r.content))
 
@@ -59,4 +59,3 @@ class TransferWise:
             "Pragma": "no-cache",
             "Accept": "application/json, text/plain, */*",
         }
-
