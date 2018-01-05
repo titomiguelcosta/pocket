@@ -23,19 +23,16 @@ def rate(source='EUR', target='GBP'):
     })
 
 
-@app.route("/outcome/<float:transferred>/<float:cashed>", defaults={'source': 'EUR', 'target': 'GBP'})
-@app.route("/outcome/<int:transferred>/<int:cashed>", defaults={'source': 'EUR', 'target': 'GBP'})
-@app.route("/outcome/<float:transferred>/<float:cashed>/<string:source>", defaults={'target': 'GBP'})
-@app.route("/outcome/<int:transferred>/<int:cashed>/<string:source>", defaults={'target': 'GBP'})
-@app.route("/outcome/<float:transferred>/<float:cashed>/<string:source>/<string:target>")
-@app.route("/outcome/<int:transferred>/<int:cashed>/<string:source>/<string:target>")
-def outcome(transferred, cashed, source='EUR', target='GBP', rate=None):
+@app.route("/outcome/<transferred>/<cashed>", defaults={'source': 'EUR', 'target': 'GBP'})
+@app.route("/outcome/<transferred>/<cashed>/<string:source>", defaults={'target': 'GBP'})
+@app.route("/outcome/<transferred>/<cashed>/<string:source>/<string:target>")
+def outcome(transferred, cashed, source='EUR', target='GBP'):
     calculator = Calculator()
     fee_manager = FeeManager()
     transferwise = TransferWise()
     transferred = float(transferred)
     cashed = float(cashed)
-    rate = float(rate) if rate is not None else transferwise.get_rate(target, source)
+    rate = transferwise.get_rate(target, source)
 
     fees = fee_manager.fee(cashed, source=target, target=source)
     cash_out = calculator.cash_out(cashed, fees, rate)
