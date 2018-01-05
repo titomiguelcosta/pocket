@@ -36,3 +36,13 @@ In the example, it is intended to make a profit of 100NZD by transfering 1000NZD
 $ python bin/pocket profit 100 1000 --source=NZD --target=GBP
 
 ```
+
+## Outcome
+
+Determines the balance after reverting a transfer.
+In the example, it is intended to determine how much it will be made by transferring back 9200NZD to the GBP account at the current rate.
+
+```
+$ python bin/pocket outcome 5000 9200 --source=GBP --target=NZD
+
+```
