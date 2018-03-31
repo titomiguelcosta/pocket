@@ -66,7 +66,7 @@ def profit_command(args):
     ))
 
 
-def outcome_command(args):
+def balance_command(args):
     calculator = Calculator()
     fee_manager = FeeManager()
     transferwise = TransferWise()
@@ -76,9 +76,9 @@ def outcome_command(args):
 
     fees = fee_manager.fee(cashed, source=args.target, target=args.source)
     cash_out = calculator.cash_out(cashed, fees, rate)
-    outcome = cash_out - transferred
-    print("Outcome of %.2f%s by transferring back %.2f%s" % (
-        outcome,
+    balance = cash_out - transferred
+    print("Balance of %.2f%s by transferring back %.2f%s" % (
+        balance,
         args.source,
         cashed,
         args.target
