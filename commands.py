@@ -57,11 +57,29 @@ def profit_command(args):
         cashed = float(args.cashed)
 
     amount = transferred + profit
-    print("To profit %.2f%s the rate from %s to %s must be at least %.5f (%.5f)" % (
+    print("To profit %.2f%s the rate from %s to %s must be at least %.5f" % (
         profit,
         args.source,
         args.target,
         args.source,
-        calculator.calculate_rate(cashed, fee_manager.fee(amount, args.target, args.source), amount),
-        transferwise.get_rate(args.target, args.source)
+        calculator.calculate_rate(cashed, fee_manager.fee(cashed, args.target, args.source), amount),
+    ))
+
+
+def balance_command(args):
+    calculator = Calculator()
+    fee_manager = FeeManager()
+    transferwise = TransferWise()
+    transferred = float(args.transferred)
+    cashed = float(args.cashed)
+    rate = float(args.rate) if args.rate is not None else transferwise.get_rate(args.target, args.source)
+
+    fees = fee_manager.fee(cashed, source=args.target, target=args.source)
+    cash_out = calculator.cash_out(cashed, fees, rate)
+    balance = cash_out - transferred
+    print("Balance of %.2f%s by transferring back %.2f%s" % (
+        balance,
+        args.source,
+        cashed,
+        args.target
     ))

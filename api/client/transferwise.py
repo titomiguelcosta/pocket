@@ -1,5 +1,6 @@
 import requests
 import random
+import logging
 
 
 class TransferWise:
@@ -9,16 +10,26 @@ class TransferWise:
     def get_rate(self, source="EUR", target="GBP"):
         rate = None
         headers = self.get_headers()
-        headers.update({"Authorization": "Basic " + self.token})
+        headers.update({"x-authorization-key": self.authorisation_key})
         while rate is None:
             r = requests.get(
-                "https://api.transferwise.com/v1/comparisons",
+                "https://transferwise.com/api/v1/payment/calculate",
                 headers=headers,
-                params={"source": source, "target": target, "excludeCheaper": "false", "amount": random.randint(1000, 9000)}
+                params={
+                    "amountCurrency": "source",
+                    "getNoticeMessages": "true",
+                    "hasDiscount": "false",
+                    "payInMethod": "REGULAR",
+                    "sourceCurrency": source,
+                    "targetCurrency": target,
+                    "amount": random.randint(1000, 9000)
+                }
             )
             json = r.json()
-            if 200 == r.status_code and len(json["providers"]) > 0:
-                rate = json["providers"][0]["rate"]
+            if 200 == r.status_code and "transferwiseRate" in json:
+                rate = float(json["transferwiseRate"])
+            else:
+                logging.getLogger(__name__).warning(str(r.content))
 
         return rate
 
@@ -42,7 +53,9 @@ class TransferWise:
     def get_headers(self):
         return {
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
-            "Referer": "https://transferwise.com/nz/",
+            "Referer": "https://transferwise.com",
             "Origin": "https://transferwise.com",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "Accept": "application/json, text/plain, */*",
         }
-
