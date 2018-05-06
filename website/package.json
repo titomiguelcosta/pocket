@@ -13,7 +13,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "aws --profile titomiguelcosta s3 sync --acl public-read build/ s3://titomiguelcosta-pocket-website",
+    "deploy": "aws --profile titomiguelcosta s3 sync --acl public-read build/ s3://website.pocket.titomiguelcosta.com",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

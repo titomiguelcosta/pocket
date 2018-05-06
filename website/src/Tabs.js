@@ -1,6 +1,7 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
+import { Rate } from './Rate';
 
 export class TabExample extends React.Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export class TabExample extends React.Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <h4>Form for Rates</h4>
+                <Rate />
               </Col>
             </Row>
           </TabPane>
