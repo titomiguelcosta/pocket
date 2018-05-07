@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 
 export class Rate extends React.Component {
   constructor(props) {
@@ -8,29 +8,34 @@ export class Rate extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="form">
         <Form>
-            <FormGroup>
-                <Label>Source</Label>
-                <select name="source">
-                    <option value="EUR">EUR</option>
-                    <option value="GBP">GBP</option>
-                    <option value="NZD">NZD</option>
-                </select>
+            <FormGroup row>
+                <Label for="rateSource" sm={4}>Source</Label>
+                <Col sm={2}>
+                    <Input type="select" name="source" id="rateSource">
+                        <option>EUR</option>
+                        <option>GBP</option>
+                        <option>NZD</option>
+                    </Input>
+                </Col>
             </FormGroup>
-            <FormGroup>
-                <Label>Target</Label>
-                <select name="target">
-                    <option value="EUR">EUR</option>
-                    <option value="GBP">GBP</option>
-                    <option value="NZD">NZD</option>
-                </select>
+            <FormGroup row>
+                <Label for="rateTarget" sm={4}>Target</Label>
+                <Col sm={2}>
+                    <Input type="select" name="target" id="rateTarget">
+                        <option>EUR</option>
+                        <option>GBP</option>
+                        <option>NZD</option>
+                    </Input>
+                </Col>
             </FormGroup>
 
             <FormGroup>
                 <Button>Calculate</Button>
             </FormGroup>
         </Form>
+        <div id="output"></div>
       </div>
     )
   }

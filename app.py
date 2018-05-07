@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return redirect('https://website.pocket.titomiguelcosta.com/', code=302)
+    return redirect('http://website.pocket.titomiguelcosta.com.s3-website-us-east-1.amazonaws.com', code=302)
 
 
 @app.route('/rate', defaults={'source': 'EUR', 'target': 'GBP'})
