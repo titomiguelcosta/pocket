@@ -1,10 +1,15 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask import jsonify
 from api.client.transferwise import TransferWise
 from calculator import Calculator
 from fees import FeeManager
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return redirect('https://website.pocket.titomiguelcosta.com/', code=302)
 
 
 @app.route('/rate', defaults={'source': 'EUR', 'target': 'GBP'})
