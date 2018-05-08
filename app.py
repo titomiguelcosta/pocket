@@ -3,9 +3,10 @@ from flask import jsonify
 from api.client.transferwise import TransferWise
 from calculator import Calculator
 from fees import FeeManager
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def index():
