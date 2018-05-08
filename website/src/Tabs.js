@@ -3,7 +3,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import classnames from 'classnames';
 import { Rate } from './Rate';
 
-export class TabExample extends React.Component {
+export class Tabs extends React.Component {
   constructor(props) {
     super(props);
 

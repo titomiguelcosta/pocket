@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import { TabExample } from './Tabs.js';
+import { Tabs } from './Tabs.js';
 import './App.css';
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
           <h1 className="App-title">Pocket</h1>
           <p>Scripts for currency exchange. Determine rates. Calculate balance.</p>
         </header>
-        <TabExample />
+        <Tabs />
       </div>
     );
   }

@@ -1,61 +1,52 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col, Alert } from 'reactstrap';
+import { Currency } from './Currency';
 
 export class Rate extends React.Component {
   constructor(props) {
     super(props);
-
-        this.state = {
-            description: null
-        }
+    this.url ='https://pocket.titomiguelcosta.com'
+    this.state = {
+        description: null,
+        source: 'EUR',
+        target: 'NZD'
     }
+  }
 
   handleSubmit(e) {
     e.preventDefault()
-
-    console.log(this.rate.value)
-
-    fetch(`https://pocket.titomiguelcosta.com/rate/${this.source.value}/${this.rate.value}`)
+    this.state.description = null
+    fetch(`${this.url}/rate/${this.state.source}/${this.state.target}`)
         .then((res) => res.json())
         .then((data) => {
-                console.log(data);
+            this.setState({description: data.description})
+        })
+        .catch((error) => {
+            this.setState({description: "Failed to connect."})
+        })
+  }
 
-                this.setState({
-                    description: data.description
-                })
-            })
+  handleCurrency(e, widget) {
+    this.setState({[widget]: e.target.value})
   }
 
   render() {
     return (
       <div className="form">
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-            <FormGroup row>
-                <Label for="rateSource" sm={4}>Source</Label>
-                <Col sm={2}>
-                    <Input type="select" name="source" id="rateSource" ref={(input) =>  {this.source = input}}>
-                        <option>EUR</option>
-                        <option>GBP</option>
-                        <option>NZD</option>
-                    </Input>
-                </Col>
-            </FormGroup>
-            <FormGroup row>
-                <Label for="rateTarget" sm={4}>Target</Label>
-                <Col sm={2}>
-                    <Input type="select" name="target" id="rateTarget" ref={(input) =>  {this.rate = input}}>
-                        <option>EUR</option>
-                        <option>GBP</option>
-                        <option>NZD</option>
-                    </Input>
-                </Col>
-            </FormGroup>
+            <Currency name="Source" field="source"  default={this.state.source} handleCurrency={this.handleCurrency.bind(this)} />
+            <Currency name="Target" field="target" default={this.state.target} handleCurrency={this.handleCurrency.bind(this)} />
 
             <FormGroup>
                 <Button>Calculate</Button>
             </FormGroup>
         </Form>
-        <div id="output">{this.state.description}</div>
+        {
+            this.state.description &&
+            <Alert color="dark" id="output">
+                {this.state.description}
+            </Alert>
+        }
       </div>
     )
   }
