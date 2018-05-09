@@ -10,7 +10,7 @@ export class Profit extends React.Component {
         description: null,
         source: 'EUR',
         target: 'NZD',
-        rate: null,
+        profit: null,
         transferred: null,
         cashed: null
     }
@@ -20,13 +20,13 @@ export class Profit extends React.Component {
     e.preventDefault()
     this.setState({description: null})
     let endpoint = ''
-    if (this.state.rate) {
+    if (this.state.cashed) {
         endpoint = `${this.state.transferred}/${this.state.profit}/${this.state.cashed}/${this.state.source}/${this.state.target}`
     } else {
         endpoint = `${this.state.transferred}/${this.state.profit}/${this.state.source}/${this.state.target}`
     }
 
-    fetch(`${this.url}/balance/${endpoint}`)
+    fetch(`${this.url}/profit/${endpoint}`)
         .then((res) => res.json())
         .then((data) => {
             this.setState({description: data.description})
