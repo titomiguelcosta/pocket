@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, Col, Alert } from 'reactstrap';
+import { Button, Form, FormGroup, Alert } from 'reactstrap';
 import { Currency } from './Currency';
 
 export class Rate extends React.Component {
@@ -15,7 +15,7 @@ export class Rate extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.state.description = null
+    this.setState({description: null})
     fetch(`${this.url}/rate/${this.state.source}/${this.state.target}`)
         .then((res) => res.json())
         .then((data) => {

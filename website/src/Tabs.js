@@ -1,7 +1,9 @@
 import React from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import { Rate } from './Rate';
+import { Profit } from './Profit';
+import { Balance } from './Balance';
 
 export class Tabs extends React.Component {
   constructor(props) {
@@ -60,26 +62,15 @@ export class Tabs extends React.Component {
           <TabPane tabId="2">
             <br />
             <Row>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Special Title Treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
-              </Col>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Special Title Treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
+              <Col sm="12">
+                <Profit />
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="3">
             <Row>
               <Col sm="12">
-                <h4>Form for Balance</h4>
+                <Balance />
               </Col>
             </Row>
           </TabPane>
