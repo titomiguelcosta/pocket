@@ -2,7 +2,6 @@ import requests
 import random
 import logging
 
-
 class TransferWise:
     token = "YjRhODM3MWUtZTE3Yi00NTIzLWE2MDgtMGMwNDFmYTBiOTRlOjEwMjIxNDFhLTliZGMtNDNkZS1hZGU0LWVlMzQ4OGNiNmNhZQ=="
     authorisation_key = "dad99d7d8e52c2c8aaf9fda788d8acdc"
@@ -38,16 +37,25 @@ class TransferWise:
         headers = self.get_headers()
         headers.update({"x-authorization-key": self.authorisation_key})
 
-        while fee is None:
-            r = requests.get(
-                "https://transferwise.com/api/v1/pricing/calculateFee",
-                headers=headers,
-                params={"sourceCurrency": source, "targetCurrency": target, "amount": amount},
-            )
+        r = requests.post(
+            "https://transferwise.com/gateway/v2/quotes/",
+            headers=headers,
+            json={
+                "sourceCurrency": source, 
+                "targetCurrency": target, 
+                "sourceAmount": amount,
+                "preferredPayIn": "BANK_TRANSFER"
+            },
+        )
+        
+        if 200 == r.status_code:
             json = r.json()
-            if 200 == r.status_code and "fee" in json:
-                fee = float(json["fee"])
 
+            for paymentOption in json["paymentOptions"]:
+                if not paymentOption["disabled"] and "PERSONAL" in paymentOption["allowedProfileTypes"]:
+                    fee = float(paymentOption["fee"]["transferwise"])
+                    
+                    break
         return fee
 
     def get_headers(self):
