@@ -2,5 +2,5 @@ requests
 flask
 flask-cors
 zappa
-Werkzeug
+Werkzeug>=0.15.5
 pip
