@@ -11,6 +11,8 @@ export function Currency(props) {
                     <option>EUR</option>
                     <option>GBP</option>
                     <option>NZD</option>
+                    <option>USD</option>
+                    <option>AUS</option>
                 </Input>
             </Col>
         </FormGroup>
