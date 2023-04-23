@@ -10,7 +10,7 @@ require 'recipe/common.php';
 set('application', 'pocket:app');
 set('repository', 'git@github.com:titomiguelcosta/pocket.git');
 set('git_tty', false);
-set('keep_releases', 3);
+set('keep_releases', 1);
 set('shared_dirs', []);
 set('writable_dirs', ['']);
 set('writable_mode', 'acl');
