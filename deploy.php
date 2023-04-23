@@ -41,7 +41,7 @@ task('update:dependencies', function () {
 
 task('frontend:build', function () {
     run('cd {{release_path}}/web && npm install', ['timeout' => null]);
-    run('cd {{release_path}}/web && npm build', ['timeout' => null]);
+    run('cd {{release_path}}/web && npm run build', ['timeout' => null]);
 });
 
 desc('Deploy project');
