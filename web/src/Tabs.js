@@ -60,7 +60,6 @@ export class Tabs extends React.Component {
             </Row>
           </TabPane>
           <TabPane tabId="2">
-            <br />
             <Row>
               <Col sm="12">
                 <Profit />

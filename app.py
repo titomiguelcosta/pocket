@@ -10,7 +10,7 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return redirect('http://website.pocket.titomiguelcosta.com.s3-website-us-east-1.amazonaws.com', code=302)
+    return redirect('https://pocket.titomiguelcosta.com', code=302)
 
 
 @app.route('/rate', defaults={'source': 'EUR', 'target': 'GBP'})
@@ -53,7 +53,7 @@ def profit(transferred, profit, cashed=None, source='EUR', target='GBP'):
     rate = calculator.calculate_rate(cashed, fee_manager.fee(cashed, target, source), amount)
 
     return jsonify({
-        "description": "To profit %.2f%s the rate from %s to %s must be at least %.5f" % (
+        "description": "To profit %.2f%s the rate from %s to %s must higher or equal to %.5f" % (
             profit,
             source.upper(),
             target.upper(),
